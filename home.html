@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SecurHome — Concept Complet</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Clash+Display:wght@400;500;600;700&family=Bricolage+Grotesque:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --bg: #07090d;
+  --s1: #0d1117;
+  --s2: #121820;
+  --border: #1c2535;
+  --border2: #243044;
+  --c1: #e8f4ff;
+  --c2: #7a96b8;
+  --c3: #3d5470;
+  --blue: #4da6ff;
+  --cyan: #00e5cc;
+  --green: #39d98a;
+  --orange: #ff8c42;
+  --red: #ff4d6d;
+  --yellow: #ffd166;
+  --purple: #b47cff;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--c1);
+  font-family: 'Bricolage Grotesque', sans-serif;
+  min-height: 100vh;
+}
+
+/* NOISE OVERLAY */
+body::after {
+  content:'';
+  position:fixed;
+  inset:0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events:none;
+  z-index:9999;
+  opacity:.4;
+}
+
+/* NAV */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(7,9,13,0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  padding: 14px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-logo {
+  font-family: 'Clash Display', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--blue);
+  letter-spacing: -0.5px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.nav-link {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  color: var(--c3);
+  padding: 5px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: color 0.2s, background 0.2s;
+}
+.nav-link:hover { color: var(--c1); background: var(--s2); }
+
+/* SECTIONS */
+section {
+  padding: 80px 32px;
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+.section-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--blue);
+  background: rgba(77,166,255,0.07);
+  border: 1px solid rgba(77,166,255,0.15);
+  padding: 5px 12px;
+  border-radius: 100px;
+  margin-bottom: 20px;
+}
+
+h2 {
+  font-family: 'Clash Display', sans-serif;
+  font-size: clamp(28px, 4vw, 46px);
+  font-weight: 700;
+  letter-spacing: -1.5px;
+  line-height: 1.1;
+  margin-bottom: 14px;
+}
+
+.section-desc {
+  color: var(--c2);
+  font-size: 15px;
+  line-height: 1.7;
+  max-width: 640px;
+  margin-bottom: 40px;
+}
+
+/* HERO */
+#hero {
+  padding: 100px 32px 60px;
+  max-width: 1120px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: center;
+}
+
+@media(max-width:768px){ #hero { grid-template-columns:1fr; gap:40px; } }
+
+.hero-left {}
+
+.hero-eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--cyan);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.live-dot { width:7px; height:7px; border-radius:50%; background:var(--cyan); animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{box-shadow:0 0 0 0 rgba(0,229,204,0.4)} 50%{box-shadow:0 0 0 8px rgba(0,229,204,0)} }
+
+.hero-title {
+  font-family: 'Clash Display', sans-serif;
+  font-size: clamp(40px, 6vw, 72px);
+  font-weight: 700;
+  letter-spacing: -2.5px;
+  line-height: 1.0;
+  margin-bottom: 20px;
+}
+
+.hero-title span {
+  background: linear-gradient(135deg, var(--blue) 0%, var(--cyan) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-sub {
+  color: var(--c2);
+  font-size: 16px;
+  line-height: 1.7;
+  margin-bottom: 32px;
+  max-width: 460px;
+}
+
+.hero-stats {
+  display: flex;
+  gap: 32px;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.stat-num {
+  font-family: 'Clash Display', sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -1px;
+  color: var(--c1);
+}
+.stat-label { font-size: 11px; color: var(--c3); }
+
+/* HERO RIGHT — Architecture diagram */
+.hero-diagram {
+  background: var(--s1);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 28px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-diagram::before {
+  content: '';
+  position: absolute;
+  top: -60px; right: -60px;
+  width: 200px; height: 200px;
+  background: radial-gradient(circle, rgba(77,166,255,0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.diagram-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.d-node {
+  flex: 1;
+  background: var(--s2);
+  border: 1px solid var(--border2);
+  border-radius: 10px;
+  padding: 10px;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--c2);
+}
+
+.d-node .d-icon { font-size: 18px; display: block; margin-bottom: 4px; }
+
+.d-arrow {
+  color: var(--border2);
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.d-node.active {
+  border-color: rgba(77,166,255,0.3);
+  color: var(--blue);
+  background: rgba(77,166,255,0.05);
+}
+
+.diagram-divider {
+  border: none;
+  border-top: 1px dashed var(--border);
+  margin: 14px 0;
+}
+
+/* CARDS GENERIC */
+.grid-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+.grid-2 { display: grid; grid-template-columns: repeat(2,1fr); gap: 16px; }
+.grid-4 { display: grid; grid-template-columns: repeat(4,1fr); gap: 14px; }
+
+@media(max-width:900px){ .grid-3{grid-template-columns:1fr 1fr;} .grid-4{grid-template-columns:1fr 1fr;} }
+@media(max-width:600px){ .grid-3,.grid-2,.grid-4{grid-template-columns:1fr;} }
+
+.card {
+  background: var(--s1);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 22px;
+  transition: border-color 0.2s, transform 0.2s;
+}
+.card:hover { transform: translateY(-2px); }
+
+.card-icon { font-size: 26px; margin-bottom: 12px; display: block; }
+.card h3 { font-family:'Clash Display',sans-serif; font-size:16px; font-weight:600; letter-spacing:-0.3px; margin-bottom:8px; }
+.card p { font-size:13px; color:var(--c2); line-height:1.65; }
+
+.tag-list { display:flex; flex-wrap:wrap; gap:5px; margin-top:12px; }
+.tag {
+  font-size: 10px;
+  font-weight: 600;
+  font-family: 'DM Mono', monospace;
+  padding: 3px 8px;
+  border-radius: 5px;
+  border: 1px solid;
+}
+.tag-b { color:var(--blue); border-color:rgba(77,166,255,0.25); background:rgba(77,166,255,0.06); }
+.tag-g { color:var(--green); border-color:rgba(57,217,138,0.25); background:rgba(57,217,138,0.06); }
+.tag-o { color:var(--orange); border-color:rgba(255,140,66,0.25); background:rgba(255,140,66,0.06); }
+.tag-r { color:var(--red); border-color:rgba(255,77,109,0.25); background:rgba(255,77,109,0.06); }
+.tag-y { color:var(--yellow); border-color:rgba(255,209,102,0.25); background:rgba(255,209,102,0.06); }
+.tag-p { color:var(--purple); border-color:rgba(180,124,255,0.25); background:rgba(180,124,255,0.06); }
+.tag-c { color:var(--cyan); border-color:rgba(0,229,204,0.25); background:rgba(0,229,204,0.06); }
+
+/* DIVIDER SECTION */
+.divider {
+  border: none;
+  border-top: 1px solid var(--border);
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+/* ROADMAP */
+.roadmap {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  position: relative;
+}
+
+.roadmap::before {
+  content:'';
+  position:absolute;
+  left:24px; top:32px; bottom:32px;
+  width:1px;
+  background: linear-gradient(to bottom, var(--blue), var(--cyan), var(--green));
+  opacity:.3;
+}
+
+.rm-item {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+  padding: 20px 0;
+  position: relative;
+}
+
+.rm-dot {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  font-weight: 500;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.rm-dot.p1 { background: rgba(77,166,255,0.1); border: 1px solid rgba(77,166,255,0.3); color: var(--blue); }
+.rm-dot.p2 { background: rgba(0,229,204,0.1); border: 1px solid rgba(0,229,204,0.3); color: var(--cyan); }
+.rm-dot.p3 { background: rgba(57,217,138,0.1); border: 1px solid rgba(57,217,138,0.3); color: var(--green); }
+.rm-dot.p4 { background: rgba(180,124,255,0.1); border: 1px solid rgba(180,124,255,0.3); color: var(--purple); }
+
+.rm-content { flex: 1; padding-top: 4px; }
+.rm-content h4 { font-family:'Clash Display',sans-serif; font-size:16px; font-weight:600; margin-bottom:4px; }
+.rm-content .duration { font-family:'DM Mono',monospace; font-size:10px; color:var(--c3); letter-spacing:1px; text-transform:uppercase; margin-bottom:8px; }
+.rm-content p { font-size:13px; color:var(--c2); line-height:1.6; }
+.rm-deliverables { display:flex; flex-wrap:wrap; gap:5px; margin-top:10px; }
+
+/* COMPETITIVE TABLE */
+.comp-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.comp-table th {
+  text-align: left;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--c3);
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--border);
+  font-weight: 500;
+}
+
+.comp-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  color: var(--c2);
+  vertical-align: middle;
+}
+
+.comp-table tr:last-child td { border-bottom: none; }
+
+.comp-table tr.us td { color: var(--c1); background: rgba(77,166,255,0.04); }
+.comp-table tr.us td:first-child { color: var(--blue); font-weight: 600; }
+
+.check { color: var(--green); font-size: 16px; }
+.cross { color: var(--c3); font-size: 16px; }
+.partial { color: var(--yellow); font-size: 13px; font-weight: 600; }
+
+/* TECH STACK */
+.stack-block {
+  background: var(--s1);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+
+.stack-header {
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--s2);
+}
+
+.stack-header h4 {
+  font-family: 'Clash Display', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.stack-body {
+  padding: 18px 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tech-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--s2);
+  border: 1px solid var(--border2);
+  border-radius: 8px;
+  padding: 6px 12px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--c2);
+  transition: border-color 0.2s, color 0.2s;
+}
+.tech-pill:hover { border-color: var(--blue); color: var(--c1); }
+.tech-pill .dot { width:6px; height:6px; border-radius:50%; }
+
+/* MONETISATION */
+.mono-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+@media(max-width:600px){ .mono-grid{grid-template-columns:1fr;} }
+
+.mono-card {
+  background: var(--s1);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+.mono-card.featured {
+  border-color: rgba(77,166,255,0.3);
+  background: linear-gradient(135deg, rgba(77,166,255,0.05) 0%, var(--s1) 100%);
+}
+
+.mono-card.featured::before {
+  content:'⭐ Recommandé';
+  position:absolute;
+  top:16px; right:16px;
+  font-size:9px; font-weight:700; font-family:'DM Mono',monospace;
+  letter-spacing:1px; text-transform:uppercase;
+  color:var(--blue);
+  background:rgba(77,166,255,0.1);
+  border:1px solid rgba(77,166,255,0.2);
+  padding:3px 8px;
+  border-radius:100px;
+}
+
+.mono-card h3 { font-family:'Clash Display',sans-serif; font-size:16px; font-weight:600; margin-bottom:6px; }
+.mono-card .price { font-family:'Clash Display',sans-serif; font-size:30px; font-weight:700; color:var(--blue); margin:10px 0; letter-spacing:-1px; }
+.mono-card .price span { font-size:14px; font-weight:400; color:var(--c3); }
+.mono-card p { font-size:13px; color:var(--c2); line-height:1.6; }
+
+.mono-features { margin-top:14px; display:flex; flex-direction:column; gap:7px; }
+.mono-feat { font-size:12px; color:var(--c2); display:flex; gap:8px; align-items:flex-start; }
+.mono-feat::before { content:'✓'; color:var(--green); font-size:12px; flex-shrink:0; }
+
+/* RISKS */
+.risk-item {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  background: var(--s1);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 18px;
+}
+
+.risk-level {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 700;
+  font-family: 'DM Mono', monospace;
+  flex-shrink: 0;
+  letter-spacing: 0.5px;
+}
+.risk-H { background:rgba(255,77,109,0.1); color:var(--red); border:1px solid rgba(255,77,109,0.2); }
+.risk-M { background:rgba(255,209,102,0.1); color:var(--yellow); border:1px solid rgba(255,209,102,0.2); }
+.risk-L { background:rgba(57,217,138,0.1); color:var(--green); border:1px solid rgba(57,217,138,0.2); }
+
+.risk-content h4 { font-size:13px; font-weight:600; margin-bottom:4px; }
+.risk-content p { font-size:12px; color:var(--c2); line-height:1.5; }
+.risk-content .mitigation { font-size:11px; color:var(--cyan); margin-top:5px; font-style:italic; }
+
+/* FOOTER */
+.footer {
+  border-top: 1px solid var(--border);
+  padding: 32px;
+  text-align: center;
+  color: var(--c3);
+  font-size: 12px;
+  font-family: 'DM Mono', monospace;
+}
+
+/* ANIMATIONS */
+@keyframes fadeInUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
+
+section { animation: fadeInUp 0.7s ease both; }
+section:nth-child(2){ animation-delay:0.1s; }
+section:nth-child(3){ animation-delay:0.15s; }
+
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">🛡️ SecurHome</div>
+  <div class="nav-links">
+    <a class="nav-link" href="#concept">Concept</a>
+    <a class="nav-link" href="#features">Features</a>
+    <a class="nav-link" href="#tech">Stack tech</a>
+    <a class="nav-link" href="#monetisation">Revenus</a>
+    <a class="nav-link" href="#roadmap">Roadmap</a>
+    <a class="nav-link" href="#concurrence">Concurrence</a>
+    <a class="nav-link" href="#risques">Risques</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div id="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow"><span class="live-dot"></span> Startup IoT · Sécurité domestique</div>
+    <h1 class="hero-title">La maison<br><span>protégée</span><br>intelligemment.</h1>
+    <p class="hero-sub">Détection automatique des menaces (incendie, gaz, intrusion) avec alertes instantanées aux propriétaires ET aux autorités — géré depuis une plateforme SaaS multi-segments.</p>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-num">3</div><div class="stat-label">Menaces couvertes</div></div>
+      <div class="stat"><div class="stat-num">4</div><div class="stat-label">Segments clients</div></div>
+      <div class="stat"><div class="stat-num">&lt;30s</div><div class="stat-label">Temps d'alerte</div></div>
+    </div>
+  </div>
+
+  <div class="hero-diagram">
+    <div class="diagram-row">
+      <div class="d-node"><span class="d-icon">🌡️</span>Capteurs</div>
+      <div class="d-arrow">→</div>
+      <div class="d-node active"><span class="d-icon">🔲</span>ESP32 / Arduino</div>
+      <div class="d-arrow">→</div>
+      <div class="d-node"><span class="d-icon">📡</span>WiFi/GSM</div>
+    </div>
+    <hr class="diagram-divider">
+    <div class="diagram-row">
+      <div class="d-node"><span class="d-icon">🚒</span>Pompiers</div>
+      <div class="d-arrow">←</div>
+      <div class="d-node active"><span class="d-icon">☁️</span>Cloud + IA</div>
+      <div class="d-arrow">→</div>
+      <div class="d-node"><span class="d-icon">🚔</span>Police</div>
+    </div>
+    <hr class="diagram-divider">
+    <div class="diagram-row">
+      <div class="d-node"><span class="d-icon">📱</span>App Mobile</div>
+      <div class="d-arrow">←</div>
+      <div class="d-node active"><span class="d-icon">💻</span>Plateforme web</div>
+      <div class="d-arrow">→</div>
+      <div class="d-node"><span class="d-icon">👤</span>Admin startup</div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- FONCTIONNALITÉS ENRICHIES -->
+<section id="features">
+  <div class="section-tag">02 · Fonctionnalités</div>
+  <h2>Bien plus que 3 capteurs</h2>
+  <p class="section-desc">Voici toutes les fonctionnalités à envisager pour avoir un produit complet, différenciant et difficile à copier rapidement.</p>
+
+  <div class="grid-3" style="margin-bottom:16px">
+
+    <div class="card">
+      <span class="card-icon">🔥</span>
+      <h3>Incendie</h3>
+      <p>Capteur de fumée + thermomètre infrarouge. Confirmation par 2 capteurs avant alerte pour éviter les faux positifs.</p>
+      <div class="tag-list">
+        <span class="tag tag-o">MQ-135</span>
+        <span class="tag tag-o">DHT22</span>
+        <span class="tag tag-b">ESP32</span>
+        <span class="tag tag-r">→ Pompiers</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <span class="card-icon">💨</span>
+      <h3>Fuite de gaz</h3>
+      <p>Détection méthane, CO, propane, butane. Seuils configurables par type de logement.</p>
+      <div class="tag-list">
+        <span class="tag tag-y">MQ-2</span>
+        <span class="tag tag-y">MQ-7 CO</span>
+        <span class="tag tag-b">Arduino</span>
+        <span class="tag tag-r">→ Pompiers</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <span class="card-icon">🕵️</span>
+      <h3>Intrusion</h3>
+      <p>PIR + capteur magnétique portes/fenêtres + caméra IA de reconnaissance. Photo envoyée à la police.</p>
+      <div class="tag-list">
+        <span class="tag tag-r">HC-SR501 PIR</span>
+        <span class="tag tag-b">ESP32-CAM</span>
+        <span class="tag tag-r">→ Police</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <span class="card-icon">💧</span>
+      <h3>Inondation / dégât des eaux</h3>
+      <p>Capteur d'humidité sol dans cave, cuisine, salle de bain. Alerte propriétaire + assureur optionnel.</p>
+      <div class="tag-list">
+        <span class="tag tag-b">Capteur HS-038</span>
+        <span class="tag tag-g">→ Propriétaire</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <span class="card-icon">⚡</span>
+      <h3>Coupure de courant / alarme secteur</h3>
+      <p>Détection panne réseau. Le hub bascule automatiquement sur batterie de secours et alerte GSM.</p>
+      <div class="tag-list">
+        <span class="tag tag-y">UPS intégré</span>
+        <span class="tag tag-b">Module GSM SIM800</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <span class="card-icon">🌡️</span>
+      <h3>Qualité de l'air intérieur</h3>
+      <p>Surveillance CO₂, humidité, température ambiante. Dashboard bien-être en prime — valeur ajoutée visible.</p>
+      <div class="tag-list">
+        <span class="tag tag-c">SCD30 CO₂</span>
+        <span class="tag tag-c">BME280</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <span class="card-icon">📹</span>
+      <h3>Surveillance vidéo IA</h3>
+      <p>Stream live sur mobile, détection silhouette, capture automatique lors d'alerte. Stockage cloud 7 jours.</p>
+      <div class="tag-list">
+        <span class="tag tag-b">ESP32-CAM</span>
+        <span class="tag tag-p">IA Vision</span>
+        <span class="tag tag-g">RTSP Stream</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <span class="card-icon">🔔</span>
+      <h3>Alarme sonore locale</h3>
+      <p>Sirène 90dB activée automatiquement. Peut dissuader un intrus avant même l'arrivée de la police.</p>
+      <div class="tag-list">
+        <span class="tag tag-o">Buzzer actif</span>
+        <span class="tag tag-o">Sirène 12V</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <span class="card-icon">🤖</span>
+      <h3>IA d'analyse comportementale</h3>
+      <p>Apprentissage des patterns normaux du foyer. Alerte uniquement si comportement réellement anormal. Moins de fausses alertes.</p>
+      <div class="tag-list">
+        <span class="tag tag-p">ML embarqué</span>
+        <span class="tag tag-p">TensorFlow Lite</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FONCTIONS PLATEFORME -->
+  <div class="section-tag" style="margin-top:48px">Plateforme web & App mobile</div>
+  <div class="grid-2" style="margin-top:20px">
+    <div class="card">
+      <span class="card-icon">💻</span>
+      <h3>Plateforme web (B2B / Admin)</h3>
+      <p style="margin-bottom:10px">Le cerveau de ta startup.</p>
+      <div class="mono-features">
+        <div class="mono-feat">Dashboard temps réel de tous les logements clients</div>
+        <div class="mono-feat">Gestion des abonnements, facturation, renouvellements</div>
+        <div class="mono-feat">Configuration capteurs à distance par logement</div>
+        <div class="mono-feat">Historique et logs complets de chaque alerte</div>
+        <div class="mono-feat">Géolocalisation de chaque installation sur carte</div>
+        <div class="mono-feat">API webhooks vers services d'urgence partenaires</div>
+        <div class="mono-feat">Multi-tenant : accès séparé client / admin / technicien</div>
+        <div class="mono-feat">Rapports automatiques mensuels par email au client</div>
+      </div>
+    </div>
+    <div class="card">
+      <span class="card-icon">📱</span>
+      <h3>Application mobile (B2C)</h3>
+      <p style="margin-bottom:10px">L'interface quotidienne du propriétaire.</p>
+      <div class="mono-features">
+        <div class="mono-feat">Notifications push critiques avec niveau de sévérité</div>
+        <div class="mono-feat">Vue live caméras + historique vidéo 7 jours</div>
+        <div class="mono-feat">Armement / désarmement par zone (nuit, absence, vacation)</div>
+        <div class="mono-feat">Contacts d'urgence personnalisés (famille, voisin de confiance)</div>
+        <div class="mono-feat">Bouton "fausse alerte" avec code PIN pour annuler</div>
+        <div class="mono-feat">Mode vacances : surveillance renforcée automatique</div>
+        <div class="mono-feat">Journal de bord quotidien (tout va bien, anomalies mineures)</div>
+        <div class="mono-feat">Widget écran d'accueil statut en un coup d'œil</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- STACK TECHNIQUE -->
+<section id="tech">
+  <div class="section-tag">03 · Stack technique</div>
+  <h2>Architecture recommandée</h2>
+  <p class="section-desc">Avec tes compétences hardware et web/mobile, voici la stack optimale pour aller vite sans dette technique.</p>
+
+  <div class="stack-block">
+    <div class="stack-header"><span>🔲</span><h4>Hardware — Terrain</h4></div>
+    <div class="stack-body">
+      <div class="tech-pill"><span class="dot" style="background:var(--blue)"></span>ESP32 (hub principal)</div>
+      <div class="tech-pill"><span class="dot" style="background:var(--blue)"></span>Arduino Nano (capteurs locaux)</div>
+      <div class="tech-pill"><span class="dot" style="background:var(--orange)"></span>ESP32-CAM</div>
+      <div class="tech-pill"><span class="dot" style="background:var(--yellow)"></span>Module GSM SIM800L (fallback)</div>
+      <div class="tech-pill"><span class="dot" style="background:var(--cyan)"></span>Capteurs MQ-2/7/135</div>
+      <div class="tech-pill"><span class="dot" style="background:var(--green)"></span>PIR HC-SR501</div>
+      <div class="tech-pill"><span class="dot" style="background:var(--purple)"></span>LoRa si zone sans WiFi</div>
+    </div>
+  </div>
+
+  <div class="stack-block">
+    <div class="stack-header"><span>☁️</span><h4>Backend & Cloud</h4></div>
+    <div class="stack-body">
+      <div class="tech-pill"><span class="dot" style="background:var(--green)"></span>Node.js + Express / NestJS</div>
+      <div class="tech-pill"><span class="dot" style="background:var(--blue)"></span>MQTT Broker (Mosquitto)</div>
+      <div class="tech-pill"><span class="dot" style="background:var(--orange)"></span>PostgreSQL (données clients)</div>
+      <div class="tech-pill"><span class="dot" style="background:var(--cyan)"></span>InfluxDB (séries temporelles capteurs)</div>
+      <div class="tech-pill"><span class="dot" style="background:var(--red)"></span>Redis (alertes temps réel)</div>
+      <div class="tech-pill"><span class="dot" style="background:var(--purple)"></span>Firebase (push notifications)</div>
+      <div class="tech-pill"><span class="dot" style="background:var(--blue)"></span>AWS / GCP / Railway</div>
+      <div class="tech-pill"><span class="dot" style="background:var(--yellow)"></span>WebSockets (dashboard live)</div>
+    </div>
+  </div>
+
+  <div class="stack-block">
+    <div class="stack-header"><span>💻</span><h4>Frontend Web</h4></div>
+    <div class="stack-body">
+      <div class="tech-pill"><span class="dot" style="background:var(--cyan)"></span>React + TypeScript</div>
+      <div class="tech-pill"><span class="dot" style="background:var(--blue)"></span>Next.js (SSR + SEO)</div>
+      <div class="tech-pill"><span class="dot" style="background:var(--purple)"></span>Leaflet.js (carte des installations)</div>
+      <div class="tech-pill"><span class="dot" style="background:var(--green)"></span>Chart.js / Recharts</div>
+      <div class="tech-pill"><span class="dot" style="background:var(--orange)"></span>Tailwind CSS</div>
+    </div>
+  </div>
+
+  <div class="stack-block">
+    <div class="stack-header"><span>📱</span><h4>Application Mobile</h4></div>
+    <div class="stack-body">
+      <div class="tech-pill"><span class="dot" style="background:var(--blue)"></span>React Native (iOS + Android en 1 codebase)</div>
+      <div class="tech-pill"><span class="dot" style="background:var(--orange)"></span>Expo</div>
+      <div class="tech-pill"><span class="dot" style="background:var(--purple)"></span>Firebase Cloud Messaging</div>
+      <div class="tech-pill"><span class="dot" style="background:var(--cyan)"></span>WebRTC (stream caméra live)</div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- MONÉTISATION -->
+<section id="monetisation">
+  <div class="section-tag">04 · Monétisation</div>
+  <h2>Comment gagner de l'argent</h2>
+  <p class="section-desc">4 flux de revenus complémentaires pour un modèle solide et récurrent — clé pour attirer des investisseurs.</p>
+
+  <div class="mono-grid" style="margin-bottom:16px">
+    <div class="mono-card">
+      <h3>🔧 Vente du kit hardware</h3>
+      <div class="price">50–150 € <span>/ installation</span></div>
+      <p>Vente du kit capteurs + hub ESP32 + installation. Revenu one-shot mais utile pour couvrir les coûts matériels.</p>
+      <div class="mono-features">
+        <div class="mono-feat">Kit Essentiel : fumée + gaz + PIR</div>
+        <div class="mono-feat">Kit Premium : + caméra + qualité d'air</div>
+        <div class="mono-feat">Installation par technicien partenaire</div>
+      </div>
+    </div>
+
+    <div class="mono-card featured">
+      <h3>🔄 Abonnement mensuel (SaaS)</h3>
+      <div class="price">10–30 € <span>/ mois</span></div>
+      <p>Accès à la plateforme, app mobile, alertes, cloud vidéo et mises à jour. Revenu récurrent = valeur startup.</p>
+      <div class="mono-features">
+        <div class="mono-feat">Basic 9,90€ : alertes + app mobile</div>
+        <div class="mono-feat">Standard 19,90€ : + vidéo 7j + rapport mensuel</div>
+        <div class="mono-feat">Premium 29,90€ : + IA + support prioritaire</div>
+      </div>
+    </div>
+
+    <div class="mono-card">
+      <h3>🏢 Forfait B2B (PME / promoteurs)</h3>
+      <div class="price">200–2000 € <span>/ mois</span></div>
+      <p>Contrat annuel par site surveillé. Gestion multi-sites depuis une seule interface. Marges plus élevées.</p>
+      <div class="mono-features">
+        <div class="mono-feat">Accès multi-sites et multi-utilisateurs</div>
+        <div class="mono-feat">SLA garanti + maintenance incluse</div>
+        <div class="mono-feat">Facturation annuelle avec remise</div>
+      </div>
+    </div>
+
+    <div class="mono-card">
+      <h3>🤝 Commissions partenaires</h3>
+      <div class="price">5–15% <span>/ contrat</span></div>
+      <p>Commission sur contrats d'assurance habitation proposés via l'app. Le client bien équipé = prime réduite.</p>
+      <div class="mono-features">
+        <div class="mono-feat">Partenariat assureurs (AXA, Allianz…)</div>
+        <div class="mono-feat">Référencement installateurs certifiés</div>
+        <div class="mono-feat">Revente données agrégées anonymisées</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ROADMAP -->
+<section id="roadmap">
+  <div class="section-tag">05 · Roadmap</div>
+  <h2>De l'idée au marché</h2>
+  <p class="section-desc">Une progression réaliste en 4 phases pour valider, construire et scaler sans brûler tes ressources.</p>
+
+  <div class="roadmap">
+    <div class="rm-item">
+      <div class="rm-dot p1">P1</div>
+      <div class="rm-content">
+        <div class="duration">Mois 1–3 · MVP Hardware</div>
+        <h4>Prototype fonctionnel</h4>
+        <p>Construire un premier kit fonctionnel avec 3 capteurs de base (fumée, gaz, PIR) connecté à un backend minimal. Tester chez toi ou chez un proche. Valider la fiabilité avant tout.</p>
+        <div class="rm-deliverables">
+          <span class="tag tag-b">Hub ESP32 fonctionnel</span>
+          <span class="tag tag-g">Backend MQTT basique</span>
+          <span class="tag tag-y">Notif push SMS/email</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="rm-item">
+      <div class="rm-dot p2">P2</div>
+      <div class="rm-content">
+        <div class="duration">Mois 4–7 · Bêta fermée</div>
+        <h4>10 maisons pilotes gratuites</h4>
+        <p>Installer chez 10 familles ou PME gratuitement. Collecter du feedback intensément. Affiner l'algorithme d'alerte, corriger les faux positifs. Construire l'app mobile et le dashboard.</p>
+        <div class="rm-deliverables">
+          <span class="tag tag-b">App mobile v1</span>
+          <span class="tag tag-c">Dashboard web v1</span>
+          <span class="tag tag-p">10 installations terrain</span>
+          <span class="tag tag-g">Zéro fausse alerte</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="rm-item">
+      <div class="rm-dot p3">P3</div>
+      <div class="rm-content">
+        <div class="duration">Mois 8–12 · Lancement commercial</div>
+        <h4>Premiers clients payants</h4>
+        <p>Lancer les abonnements. Viser 100 clients. Établir les partenariats avec centres de télésurveillance agréés pour les alertes police/pompiers. Obtenir les certifications requises.</p>
+        <div class="rm-deliverables">
+          <span class="tag tag-o">100 clients payants</span>
+          <span class="tag tag-r">Partenariat télésurveillance</span>
+          <span class="tag tag-y">Certifications (RGPD, CNAPS)</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="rm-item">
+      <div class="rm-dot p4">P4</div>
+      <div class="rm-content">
+        <div class="duration">An 2+ · Scale & B2B</div>
+        <h4>Expansion B2B & levée de fonds</h4>
+        <p>Attaquer les PME, promoteurs immobiliers et collectivités. Lancer des forfaits multi-sites. Lever des fonds en présentant un MRR solide et un taux de churn bas.</p>
+        <div class="rm-deliverables">
+          <span class="tag tag-p">Contrats promoteurs</span>
+          <span class="tag tag-b">Module IA avancé</span>
+          <span class="tag tag-c">Levée de fonds Seed</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- CONCURRENCE -->
+<section id="concurrence">
+  <div class="section-tag">06 · Analyse concurrentielle</div>
+  <h2>Pourquoi tu peux gagner</h2>
+  <p class="section-desc">Les concurrents sont soit trop chers, soit trop généralistes, soit absents du marché africain / émergent. C'est ton avantage.</p>
+
+  <div class="card" style="overflow-x:auto; padding:0">
+    <table class="comp-table">
+      <thead>
+        <tr>
+          <th>Solution</th>
+          <th>Alertes autorités auto</th>
+          <th>IoT local (Arduino)</th>
+          <th>App mobile</th>
+          <th>Plateforme web</th>
+          <th>Prix accessible</th>
+          <th>Marché émergent</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="us">
+          <td>🛡️ SecurHome (toi)</td>
+          <td><span class="check">✓</span></td>
+          <td><span class="check">✓</span></td>
+          <td><span class="check">✓</span></td>
+          <td><span class="check">✓</span></td>
+          <td><span class="check">✓</span></td>
+          <td><span class="check">✓</span></td>
+        </tr>
+        <tr>
+          <td>Somfy</td>
+          <td><span class="partial">~</span></td>
+          <td><span class="cross">✗</span></td>
+          <td><span class="check">✓</span></td>
+          <td><span class="partial">~</span></td>
+          <td><span class="cross">✗</span></td>
+          <td><span class="cross">✗</span></td>
+        </tr>
+        <tr>
+          <td>Verisure</td>
+          <td><span class="check">✓</span></td>
+          <td><span class="cross">✗</span></td>
+          <td><span class="check">✓</span></td>
+          <td><span class="cross">✗</span></td>
+          <td><span class="cross">✗</span></td>
+          <td><span class="cross">✗</span></td>
+        </tr>
+        <tr>
+          <td>Ring (Amazon)</td>
+          <td><span class="cross">✗</span></td>
+          <td><span class="cross">✗</span></td>
+          <td><span class="check">✓</span></td>
+          <td><span class="partial">~</span></td>
+          <td><span class="partial">~</span></td>
+          <td><span class="cross">✗</span></td>
+        </tr>
+        <tr>
+          <td>Solutions DIY locales</td>
+          <td><span class="cross">✗</span></td>
+          <td><span class="check">✓</span></td>
+          <td><span class="cross">✗</span></td>
+          <td><span class="cross">✗</span></td>
+          <td><span class="check">✓</span></td>
+          <td><span class="partial">~</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- RISQUES -->
+<section id="risques">
+  <div class="section-tag">07 · Risques & mitigations</div>
+  <h2>Les obstacles à anticiper</h2>
+  <p class="section-desc">Mieux vaut les identifier maintenant que de les découvrir en plein lancement.</p>
+
+  <div class="grid-2">
+    <div class="risk-item">
+      <div class="risk-level risk-H">HIG</div>
+      <div class="risk-content">
+        <h4>Connexion légale aux autorités</h4>
+        <p>En France/Afrique, alerter directement police/pompiers nécessite une habilitation CNAPS ou un partenariat avec un télé-opérateur agréé.</p>
+        <div class="mitigation">→ Solution : Partenaire avec un centre de télésurveillance agréé dès la phase 3.</div>
+      </div>
+    </div>
+
+    <div class="risk-item">
+      <div class="risk-level risk-H">HIG</div>
+      <div class="risk-content">
+        <h4>Fausses alertes répétées</h4>
+        <p>Un taux élevé détruit la confiance client ET épuise les services d'urgence. Risque de pénalités légales.</p>
+        <div class="mitigation">→ Solution : Double confirmation (2 capteurs + délai 30s) + apprentissage IA des patterns normaux.</div>
+      </div>
+    </div>
+
+    <div class="risk-item">
+      <div class="risk-level risk-M">MED</div>
+      <div class="risk-content">
+        <h4>Coupure internet / courant</h4>
+        <p>Le système devient inutile si la connexion tombe au mauvais moment.</p>
+        <div class="mitigation">→ Solution : Module GSM de secours (SIM800) + batterie LiPo 12h dans le hub.</div>
+      </div>
+    </div>
+
+    <div class="risk-item">
+      <div class="risk-level risk-M">MED</div>
+      <div class="risk-content">
+        <h4>RGPD & vie privée</h4>
+        <p>Caméras, données de comportement = données sensibles. Violation = amende + réputation.</p>
+        <div class="mitigation">→ Solution : Chiffrement E2E, stockage local optionnel, politique RGPD dès le prototype.</div>
+      </div>
+    </div>
+
+    <div class="risk-item">
+      <div class="risk-level risk-M">MED</div>
+      <div class="risk-content">
+        <h4>Coûts de support & SAV</h4>
+        <p>Le hardware en terrain = pannes, remplacements, techniciens. Sous-estimé par beaucoup de startups IoT.</p>
+        <div class="mitigation">→ Solution : Réseau d'installateurs partenaires locaux + diagnostic remote via plateforme.</div>
+      </div>
+    </div>
+
+    <div class="risk-item">
+      <div class="risk-level risk-L">LOW</div>
+      <div class="risk-content">
+        <h4>Scalabilité technique</h4>
+        <p>Gérer 1000+ hubs ESP32 simultanément avec MQTT demande une infrastructure solide.</p>
+        <div class="mitigation">→ Solution : MQTT Broker managé (HiveMQ Cloud) + architecture microservices dès le départ.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="footer">
+  SecurHome — Concept startup v2.0 · Généré avec Claude · 2026
+</div>
+
+</body>
+</html>
